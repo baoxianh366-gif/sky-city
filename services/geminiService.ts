@@ -83,7 +83,11 @@ export const generateCityGoal = async (stats: CityStats, grid: Grid): Promise<AI
     }
   } catch (error: any) {
     // Propagate rate limit errors
-    if (error.status === 429 || (error.message && (error.message.includes('429') || error.message.includes('quota')))) {
+    if (
+      error.status === 429 || 
+      (error.message && (error.message.includes('429') || error.message.includes('quota'))) ||
+      (error.error && (error.error.code === 429 || error.error.status === 'RESOURCE_EXHAUSTED'))
+    ) {
       throw error;
     }
     console.error("Error generating goal:", error);
@@ -132,7 +136,11 @@ export const generateNewsEvent = async (stats: CityStats, recentAction: string |
     }
   } catch (error: any) {
     // Propagate rate limit errors
-    if (error.status === 429 || (error.message && (error.message.includes('429') || error.message.includes('quota')))) {
+    if (
+      error.status === 429 || 
+      (error.message && (error.message.includes('429') || error.message.includes('quota'))) ||
+      (error.error && (error.error.code === 429 || error.error.status === 'RESOURCE_EXHAUSTED'))
+    ) {
       throw error;
     }
     console.error("Error generating news:", error);

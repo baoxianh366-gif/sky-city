@@ -66,7 +66,11 @@ function App() {
 
   const handleApiError = useCallback((error: any) => {
     // Check for 429 or quota errors
-    if (error.status === 429 || (error.message && (error.message.includes('429') || error.message.includes('quota')))) {
+    if (
+        error.status === 429 || 
+        (error.message && (error.message.includes('429') || error.message.includes('quota'))) ||
+        (error.error && (error.error.code === 429 || error.error.status === 'RESOURCE_EXHAUSTED'))
+    ) {
         const cooldown = 60000; // 60 seconds backoff
         console.warn(`API Rate limit hit. Cooling down for ${cooldown/1000}s.`);
         apiBackoffRef.current = Date.now() + cooldown;

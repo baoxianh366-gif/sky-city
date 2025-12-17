@@ -14,6 +14,15 @@ import { GRID_SIZE, BUILDINGS } from '../constants';
 declare global {
   namespace JSX {
     interface IntrinsicElements {
+      ambientLight: any;
+      directionalLight: any;
+      group: any;
+      mesh: any;
+      meshStandardMaterial: any;
+      meshBasicMaterial: any;
+      instancedMesh: any;
+      boxGeometry: any;
+      planeGeometry: any;
       [elemName: string]: any;
     }
   }
